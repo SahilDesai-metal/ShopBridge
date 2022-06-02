@@ -1,8 +1,5 @@
 ﻿using ShopBridge.DataLayer.ProductEntity;
 using ShopBridge.ServiceLayer.ProductDTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShopBridge.Tests.ProductMocks
 {

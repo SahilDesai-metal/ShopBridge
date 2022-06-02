@@ -4,8 +4,6 @@ using ShopBridge.DataLayer;
 using ShopBridge.ServiceLayer.ProductService;
 using ShopBridge.Tests.ProductMocks;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,17 +13,11 @@ namespace ShopBridge.Tests.ServiceTests
     {
         private static DbContextOptions<ApplicationDbContext> NewContext()
         {
-            // Create a fresh service provider, and therefore a fresh 
-            // InMemory database instance.
-            var serviceProvider = new ServiceCollection()
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "MyBlogDb")
+                .UseInternalServiceProvider(new ServiceCollection()
                 .AddEntityFrameworkInMemoryDatabase()
-                .BuildServiceProvider();
-
-            // Create a new options instance telling the context to use an
-            // InMemory database and the new service provider.
-            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            builder.UseInMemoryDatabase(databaseName: "MyBlogDb")
-                   .UseInternalServiceProvider(serviceProvider);
+                .BuildServiceProvider());
 
             return builder.Options;
         }

@@ -20,22 +20,16 @@ namespace ShopBridge.Tests.ControllerTests
     {
         private Mock<IProductService> _service;
         private Mock<IMapper> _mapper;
-        private ApplicationDbContext _context;
         private ProductController _controller;
 
         private static DbContextOptions<ApplicationDbContext> NewContext()
         {
-            // Create a fresh service provider, and therefore a fresh 
-            // InMemory database instance.
-            var serviceProvider = new ServiceCollection()
-                .AddEntityFrameworkInMemoryDatabase()
-                .BuildServiceProvider();
 
-            // Create a new options instance telling the context to use an
-            // InMemory database and the new service provider.
-            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            builder.UseInMemoryDatabase(databaseName: "MyBlogDb")
-                   .UseInternalServiceProvider(serviceProvider);
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "MyBlogDb")
+                .UseInternalServiceProvider(new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider());
 
             return builder.Options;
         }
@@ -53,7 +47,6 @@ namespace ShopBridge.Tests.ControllerTests
         private void CleanPreviousTests()
         {
             _mapper = new Mock<IMapper>() { CallBase = true };
-            _context = new ApplicationDbContext(NewContext());
             _service = new Mock<IProductService>() { CallBase = true };
             _controller = new ProductController(_service.Object, _mapper.Object);
         }

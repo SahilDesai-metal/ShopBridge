@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ShopBridge.DataLayer.ProductEntity;
 using ShopBridge.ServiceLayer.ProductDTOs;
@@ -28,6 +25,7 @@ namespace ShopBridge.API.Controllers
         }
 
         [HttpGet, Route("[controller]/all")]
+        [ResponseCache(Duration = 10, Location = ResponseCacheLocation.Client)]
         public async Task<IActionResult> FetchAllProduct()
         {
             return Ok(await _service.ListProductsAsync());
