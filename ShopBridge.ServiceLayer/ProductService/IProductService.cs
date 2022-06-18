@@ -2,7 +2,6 @@
 using ShopBridge.ServiceLayer.ProductDTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ShopBridge.ServiceLayer.ProductService

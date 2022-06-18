@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ShopBridge.ServiceLayer.ProductDTOs
+﻿namespace ShopBridge.ServiceLayer.ProductDTOs
 {
     public class ProductUpdateDto:ProductForManipulationDto
     {

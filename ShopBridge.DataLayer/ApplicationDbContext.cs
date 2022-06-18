@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ShopBridge.DataLayer.ProductEntity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShopBridge.DataLayer
 {

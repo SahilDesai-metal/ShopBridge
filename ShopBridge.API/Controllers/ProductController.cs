@@ -13,11 +13,11 @@ using ShopBridge.ServiceLayer.ProductService;
 namespace ShopBridge.API.Controllers
 {
     [ApiController]
-    public class ProductController: ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
         private readonly IMapper _mapper;
-        
+
         public ProductController(IProductService service, IMapper mapper)
         {
             _service = service;
@@ -32,7 +32,7 @@ namespace ShopBridge.API.Controllers
         }
 
         [HttpGet, Route("[controller]/{id:Guid}")]
-        public async Task<IActionResult> FetchProduct([FromRoute]Guid id)
+        public async Task<IActionResult> FetchProduct([FromRoute] Guid id)
         {
             var product = await _service.GetProductAsync(id);
 
@@ -59,31 +59,25 @@ namespace ShopBridge.API.Controllers
         {
             var currentProductFromRepo = await _service.GetProductAsync(productId);
 
-            if (currentProductFromRepo == null)
+            if (currentProductFromRepo != null)
             {
-                var product = _mapper.Map<Product>(newProduct);
-                
-                await _service.CreateProductAsync(product);
-
-                return CreatedAtRoute(nameof(EditProduct),
-                    new { newProductId = productId },
-                    product);
+                await _service.UpdateProductAsync(currentProductFromRepo, newProduct);
+                return NoContent();
             }
 
-            await _service.UpdateProductAsync(currentProductFromRepo, newProduct);
+            var product = _mapper.Map<Product>(newProduct);
 
-            return NoContent();
+            await _service.CreateProductAsync(product);
+
+            return CreatedAtRoute(nameof(EditProduct), new { newProductId = productId }, product);
         }
 
         [HttpDelete, Route("[controller]/delete/{productId:Guid}")]
-        public async Task<IActionResult> DeleteProduct([FromRoute]Guid productId)
+        public async Task<IActionResult> DeleteProduct([FromRoute] Guid productId)
         {
             var productFromRepo = await _service.GetProductAsync(productId);
 
-            if (productFromRepo == null)
-            {
-                return NotFound();
-            }
+            if (productFromRepo == null) return NotFound();
 
             await _service.DeleteProductAsync(productFromRepo);
 

@@ -4,11 +4,7 @@ using ShopBridge.DataLayer.ProductEntity;
 using ShopBridge.ServiceLayer.ProductDTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.ModelBinding;
 
 namespace ShopBridge.ServiceLayer.ProductService
 {
