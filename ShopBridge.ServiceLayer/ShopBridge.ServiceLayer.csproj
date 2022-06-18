@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="4.0.20505" />
   </ItemGroup>
 
   <ItemGroup>

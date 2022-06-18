@@ -15,6 +15,7 @@ namespace ShopBridge.API.ExceptionMiddleware
                 appHandler.Run(async context =>
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                    context.Response.ContentType = "application/json";
 
                     await context.Response.WriteAsync("Exception occured while processing given request.");
 

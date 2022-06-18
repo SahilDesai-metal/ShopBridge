@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using ShopBridge.DataLayer;
 using ShopBridge.ServiceLayer.ProductService;
 using ShopBridge.Tests.ProductMocks;
@@ -124,7 +125,7 @@ namespace ShopBridge.Tests.ServiceTests
 
             await service.CreateProductAsync(newProduct);
 
-            Assert.Equal(newProduct, await service.GetProductAsync(newProduct.Id));
+            Assert.Equal(JsonConvert.SerializeObject(newProduct), JsonConvert.SerializeObject(await service.GetProductAsync(newProduct.Id)));
         }
 
         [Fact]
