@@ -45,11 +45,11 @@ namespace ShopBridge.ServiceLayer.ProductService
             {
                 throw new ArgumentNullException(nameof(productId));
             }
-            return await _context.Products.FirstOrDefaultAsync(x => x.Id == productId);
+            return await _context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == productId);
         }
 
         public async Task<List<Product>> ListProductsAsync()
-            => await _context.Products.ToListAsync();
+            => await _context.Products.AsNoTracking().ToListAsync();
 
         public async Task UpdateProductAsync(Product existingProduct, ProductUpdateDto newProduct)
         {
